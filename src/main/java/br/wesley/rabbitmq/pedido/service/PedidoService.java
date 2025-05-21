@@ -7,6 +7,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PedidoService {
 
@@ -24,5 +26,9 @@ public class PedidoService {
         Pedido salvo = pedidoRepository.save(pedido);
         rabbitTemplate.convertAndSend("pagamento.pedido", salvo);
         return salvo;
+    }
+
+    public List<Pedido> listarTodos() {
+        return pedidoRepository.findAll();
     }
 }
